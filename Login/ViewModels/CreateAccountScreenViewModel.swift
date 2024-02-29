@@ -6,3 +6,18 @@
 //
 
 import Foundation
+
+protocol CreateAccountScreenViewModelProtocol {
+    var view: CreateAccountScreenProtocol? { get set }
+    func viewDidLoad()
+}
+
+final class CreateAccountScreenViewModel {
+    var view: CreateAccountScreenProtocol?
+}
+
+extension CreateAccountScreenViewModel: CreateAccountScreenViewModelProtocol {
+    func viewDidLoad() {
+        view?.configureVC()
+    }
+}

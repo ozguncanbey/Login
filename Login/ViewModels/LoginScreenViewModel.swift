@@ -6,3 +6,18 @@
 //
 
 import Foundation
+
+protocol LoginScreenViewModelProtocol {
+    var view: LoginScreenProtocol? { get set }
+    func viewDidLoad()
+}
+
+final class LoginScreenViewModel {
+    var view: LoginScreenProtocol?
+}
+
+extension LoginScreenViewModel: LoginScreenViewModelProtocol {
+    func viewDidLoad() {
+        view?.configureVC()
+    }
+}
