@@ -43,10 +43,6 @@ pod install
 3. If you're a new user, tap "Create Account" to navigate to the registration screen.
 4. On the registration screen, provide the required information and tap "Create Account" to create a new account.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgements
 
 - [Firebase](https://firebase.google.com/) - For providing authentication services.
