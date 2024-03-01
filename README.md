@@ -4,11 +4,11 @@ Login is a simple login application for iOS, developed entirely programmatically
 
 ## Screenshots
 
-* (https://github.com/ozguncanbey/Login/assets/138692325/d6eaab98-0fbf-410d-b7d1-8648b59af494)
-* (https://github.com/ozguncanbey/Login/assets/138692325/edfaa67b-0538-40c7-8cdf-3b64017a7597)
-* (https://github.com/ozguncanbey/Login/assets/138692325/2a018db2-c75b-436f-b8e5-34cb75d02c8f)
-* (https://github.com/ozguncanbey/Login/assets/138692325/d144eeda-a882-4d49-a4d5-ea60b19c5414)
 * (https://github.com/ozguncanbey/Login/assets/138692325/8f7ab25f-5dd2-4aa3-a8df-374fc3e4dc03)
+* (https://github.com/ozguncanbey/Login/assets/138692325/d144eeda-a882-4d49-a4d5-ea60b19c5414)
+* (https://github.com/ozguncanbey/Login/assets/138692325/2a018db2-c75b-436f-b8e5-34cb75d02c8f)
+* (https://github.com/ozguncanbey/Login/assets/138692325/edfaa67b-0538-40c7-8cdf-3b64017a7597)
+* (https://github.com/ozguncanbey/Login/assets/138692325/d6eaab98-0fbf-410d-b7d1-8648b59af494)
 
 ## Features
 
