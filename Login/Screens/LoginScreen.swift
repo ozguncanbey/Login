@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol LoginScreenProtocol: AnyObject {
     func configureVC()
+    func buttonsTapped()
 }
 
 final class LoginScreen: UIViewController {
@@ -48,6 +50,11 @@ final class LoginScreen: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
+        clearAll()
+    }
 
 }
 
@@ -55,6 +62,8 @@ extension LoginScreen: LoginScreenProtocol {
     func configureVC() {
         view.backgroundColor = .systemBackground
         UIView.dismissKeyboard(view: view)
+        
+        passwordTextField.isSecureTextEntry = true
         
         addSubviews()
         layoutUI()
@@ -112,5 +121,41 @@ extension LoginScreen: LoginScreenProtocol {
             createAccountButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor),
             createAccountButton.heightAnchor.constraint(equalToConstant: 2.5 * padding)
         ])
+    }
+    
+    func buttonsTapped() {
+        forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        createAccountButton.addTarget(self, action: #selector(createAccountButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func forgotPasswordButtonTapped() {
+        presentAlertOnMainThread(title: "Link Sent!", message: "Click on the link in your email to reset your password.", buttonTitle: "Ok")
+    }
+    
+    @objc private func loginButtonTapped() {
+        if emailTextField.text == "" || passwordTextField.text == "" {
+            presentAlertOnMainThread(title: "Fill the Blanks!", message: "Please make sure that all the blanks are filled.", buttonTitle: "Ok")
+        }
+        else {
+            Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { result, error in
+                if error != nil {
+                    self.presentAlertOnMainThread(title: "Error!", message: error?.localizedDescription ?? "Unexpected error! Make sure everything is correct.", buttonTitle: "Ok")
+                }
+                else {
+                    self.presentAlertOnMainThread(title: "Done!", message: "You've managed to log in.", buttonTitle: "Ok")
+                    self.clearAll()
+                }
+            }
+        }
+    }
+    
+    @objc private func createAccountButtonTapped() {
+        navigationController?.pushViewController(CreateAccountScreen(), animated: true)
+    }
+    
+    private func clearAll() {
+        emailTextField.text = ""
+        passwordTextField.text = ""
     }
 }

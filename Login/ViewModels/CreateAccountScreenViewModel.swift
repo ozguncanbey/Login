@@ -19,5 +19,6 @@ final class CreateAccountScreenViewModel {
 extension CreateAccountScreenViewModel: CreateAccountScreenViewModelProtocol {
     func viewDidLoad() {
         view?.configureVC()
+        view?.buttonsTapped()
     }
 }

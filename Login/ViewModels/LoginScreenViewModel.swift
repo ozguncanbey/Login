@@ -19,5 +19,6 @@ final class LoginScreenViewModel {
 extension LoginScreenViewModel: LoginScreenViewModelProtocol {
     func viewDidLoad() {
         view?.configureVC()
+        view?.buttonsTapped()
     }
 }

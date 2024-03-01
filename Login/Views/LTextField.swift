@@ -41,8 +41,10 @@ final class LTextField: UITextField {
         
         autocorrectionType = .no
         autocapitalizationType = .none
+        spellCheckingType = .no
         keyboardType = .emailAddress
         returnKeyType = .next
+        textContentType = .oneTimeCode
         
         translatesAutoresizingMaskIntoConstraints = false
     }

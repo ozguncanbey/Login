@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol CreateAccountScreenProtocol: AnyObject {
     func configureVC()
+    func buttonsTapped()
 }
 
 final class CreateAccountScreen: UIViewController {
@@ -49,13 +51,21 @@ final class CreateAccountScreen: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
     }
- 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
+        clearAll()
+    }
 }
 
 extension CreateAccountScreen: CreateAccountScreenProtocol {
     func configureVC() {
         view.backgroundColor = .systemBackground
         UIView.dismissKeyboard(view: view)
+        
+        
+        passwordTextField.isSecureTextEntry = true
+        passwordAgainTextField.isSecureTextEntry = true
         
         addSubviews()
         layoutUI()
@@ -118,5 +128,39 @@ extension CreateAccountScreen: CreateAccountScreenProtocol {
             createAccountButton.trailingAnchor.constraint(equalTo: passwordAgainTextField.trailingAnchor),
             createAccountButton.heightAnchor.constraint(equalToConstant: 2.5 * padding)
         ])
+    }
+    
+    func buttonsTapped() {
+        haveAccountButton.addTarget(self, action: #selector(haveAccountButtonTapped), for: .touchUpInside)
+        createAccountButton.addTarget(self, action: #selector(createAccountButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func haveAccountButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func createAccountButtonTapped() {
+        if emailTextField.text == "" || passwordTextField.text == "" || passwordAgainTextField.text == "" {
+            presentAlertOnMainThread(title: "Fill the Blanks!", message: "Please make sure that all the blanks are filled.", buttonTitle: "Ok")
+        }
+        else if passwordTextField.text != passwordAgainTextField.text {
+            presentAlertOnMainThread(title: "Attention!", message: "Passwords must be same!", buttonTitle: "Ok")
+        } else {
+            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { result, error in
+                if error != nil {
+                    self.presentAlertOnMainThread(title: "Error!", message: error?.localizedDescription ?? "Unexpected error! Make sure everything is correct.", buttonTitle: "Ok")
+                }
+                else {
+                    self.presentAlertOnMainThread(title: "Done!", message: "Your account was created successfully.", buttonTitle: "Ok")
+                    self.clearAll()
+                }
+            }
+        }
+    }
+    
+    private func clearAll() {
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        passwordAgainTextField.text = ""
     }
 }
